@@ -1,4 +1,4 @@
-vene/
+venv/
 _pycache_/
-*.pyc
+*_pyc
 .DS_Store
