@@ -1,2 +1,5 @@
 pandas
 numpy
+yfinance
+sec_edgar_api
+requests
