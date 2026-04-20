@@ -33,3 +33,4 @@ Thumbs.db
 
 # mypy
 .mypy_cache/
+pycache/ git rm -r --cached pycache/ git add .gitignore git add README.md
