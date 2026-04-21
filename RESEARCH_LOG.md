@@ -89,3 +89,15 @@ Spousal trades: Included in disclosures. Motivation and information source less 
 6. Commit with message referencing this log entry
 
 ---
+### Data Source Validation — 2026-04-21
+
+senate-stock-watcher-data GitHub repo: last commit 2020-12-05.
+Status: HISTORICAL ARCHIVE. Not live. Data covers 2016-2020 only.
+
+Implication: Pipeline valid for historical backtest. 
+Missing: 2021-2026 period including AI boom trades.
+
+Current live alternative identified: capitoltrades.com
+NVDA: 320 trades. Both Senate and House. Updated daily.
+Action: Switch source after pipeline is fully built and validated.
+Decision: Proceed with historical data for pipeline development.
