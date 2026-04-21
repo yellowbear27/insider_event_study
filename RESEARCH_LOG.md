@@ -101,3 +101,21 @@ Current live alternative identified: capitoltrades.com
 NVDA: 320 trades. Both Senate and House. Updated daily.
 Action: Switch source after pipeline is fully built and validated.
 Decision: Proceed with historical data for pipeline development.
+
+## 2026-04-21 — Session End
+
+### Completed Today
+- fetcher.py: Senate Stock Watcher data pipeline working
+- parser.py: filters to NVDA/CDNS/SNPS, 49 records
+- storage.py: saves to data/output/senate_trades.csv
+- price_fetcher.py: yfinance pull working, 1258 trading days
+
+### Known Issues to Fix Next Session
+1. disclosure_date missing from aggregate source — need daily files
+2. transaction_date used as T(0) for now — overstates signal
+3. Data source is historical 2016-2020 only — switch to Capitol Trades later
+
+### Next Session Priorities
+1. Fix disclosure_date problem
+2. Build event_study.py — merge trades with prices around T(0)
+3. Calculate abnormal returns vs SPY
