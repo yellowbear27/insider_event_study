@@ -1,0 +1,50 @@
+transaction_date,ticker,asset_description,type,amount,senator,owner
+11/04/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+11/20/2020,SNPS,"Synopsys, Inc.",Purchase,"$1,001 - $15,000",Thomas R Carper,Spouse
+10/16/2020,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Ron L Wyden,Child
+10/16/2020,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Ron L Wyden,Child
+10/16/2020,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Ron L Wyden,Child
+09/14/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+09/04/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+09/04/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Pat Roberts,Spouse
+09/04/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+09/04/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+08/21/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Ron L Wyden,Spouse
+08/19/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Ron L Wyden,Spouse
+07/30/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Ron L Wyden,Spouse
+07/09/2020,NVDA,NVIDIA Corporation,Sale (Partial),"$1,001 - $15,000",Thomas R Carper,Spouse
+07/06/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Ron L Wyden,Spouse
+07/27/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Ron L Wyden,Spouse
+06/26/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Ron L Wyden,Spouse
+06/24/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Ron L Wyden,Spouse
+06/12/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Ron L Wyden,Spouse
+05/26/2020,NVDA,NVIDIA Corporation,Purchase,"$100,001 - $250,000",Ron L Wyden,Spouse
+04/21/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Ron L Wyden,Spouse
+04/24/2020,NVDA,NVIDIA Corporation,Sale (Full),"$50,001 - $100,000",Pat Roberts,Spouse
+02/26/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Kelly Loeffler,Joint
+02/24/2020,NVDA,NVIDIA Corporation,Sale (Partial),"$15,001 - $50,000",Kelly Loeffler,Joint
+03/02/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+03/06/2020,NVDA,NVIDIA Corporation,Purchase,"$50,001 - $100,000",Pat Roberts,Spouse
+02/11/2020,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+01/06/2020,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+10/01/2019,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Pat Roberts,Spouse
+05/17/2019,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Joint
+12/28/2018,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Joint
+10/23/2018,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Joint
+08/28/2018,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+07/30/2018,NVDA,NVIDIA Corporation,Sale (Full),"$50,001 - $100,000",Pat Roberts,Spouse
+04/25/2018,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Pat Roberts,Spouse
+02/15/2018,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Joint
+02/05/2018,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+02/05/2018,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+12/07/2017,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Pat Roberts,Spouse
+12/01/2017,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Pat Roberts,Spouse
+11/30/2017,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+09/28/2017,NVDA,NVIDIA Corporation,Purchase,"$15,001 - $50,000",Pat Roberts,Spouse
+10/30/2017,NVDA,NVIDIA Corporation,Sale (Full),"$15,001 - $50,000",Pat Roberts,Spouse
+01/11/2017,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Spouse
+05/18/2016,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Child
+04/19/2016,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Child
+04/26/2016,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Self
+01/05/2016,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Self
+01/06/2016,NVDA,NVIDIA Corporation,Purchase,"$1,001 - $15,000",Sheldon Whitehouse,Child

@@ -6,6 +6,7 @@
 
 from fetcher import fetch_senate_trades
 from parser import parse_senate_trades
+from storage import save_to_csv
 
 
 def main():
@@ -25,6 +26,9 @@ def main():
 
     print(f"\nTotal trades found: {len(df)}")
     print(f"Tickers represented: {df['ticker'].unique()}")
+
+    # Step 4: Save to CSV
+    save_to_csv(df)
 
 
 # This block runs only when you execute main.py directly.
