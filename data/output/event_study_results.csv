@@ -1,0 +1,50 @@
+senator,ticker,event_date,type,amount,CAR_30day
+Pat Roberts,NVDA,2020-11-04,Sale (Full),"$15,001 - $50,000",-10.6
+Thomas R Carper,SNPS,2020-11-20,Purchase,"$1,001 - $15,000",11.89
+Ron L Wyden,NVDA,2020-10-16,Purchase,"$1,001 - $15,000",-6.03
+Ron L Wyden,NVDA,2020-10-16,Purchase,"$1,001 - $15,000",-6.03
+Ron L Wyden,NVDA,2020-10-16,Purchase,"$1,001 - $15,000",-6.03
+Pat Roberts,NVDA,2020-09-14,Purchase,"$15,001 - $50,000",1.97
+Pat Roberts,NVDA,2020-09-04,Sale (Full),"$15,001 - $50,000",7.5
+Pat Roberts,NVDA,2020-09-04,Purchase,"$50,001 - $100,000",7.5
+Pat Roberts,NVDA,2020-09-04,Sale (Full),"$15,001 - $50,000",7.5
+Pat Roberts,NVDA,2020-09-04,Sale (Full),"$15,001 - $50,000",7.5
+Ron L Wyden,NVDA,2020-08-21,Purchase,"$50,001 - $100,000",8.45
+Ron L Wyden,NVDA,2020-08-19,Purchase,"$15,001 - $50,000",12.71
+Ron L Wyden,NVDA,2020-07-30,Purchase,"$50,001 - $100,000",12.18
+Thomas R Carper,NVDA,2020-07-09,Sale (Partial),"$1,001 - $15,000",7.89
+Ron L Wyden,NVDA,2020-07-06,Purchase,"$15,001 - $50,000",17.12
+Ron L Wyden,NVDA,2020-07-27,Purchase,"$15,001 - $50,000",11.76
+Ron L Wyden,NVDA,2020-06-26,Purchase,"$15,001 - $50,000",9.19
+Ron L Wyden,NVDA,2020-06-24,Purchase,"$15,001 - $50,000",11.59
+Ron L Wyden,NVDA,2020-06-12,Purchase,"$50,001 - $100,000",9.44
+Ron L Wyden,NVDA,2020-05-26,Purchase,"$100,001 - $250,000",10.35
+Ron L Wyden,NVDA,2020-04-21,Purchase,"$50,001 - $100,000",13.78
+Pat Roberts,NVDA,2020-04-24,Sale (Full),"$50,001 - $100,000",6.96
+Kelly Loeffler,NVDA,2020-02-26,Sale (Full),"$15,001 - $50,000",16.68
+Kelly Loeffler,NVDA,2020-02-24,Sale (Partial),"$15,001 - $50,000",22.0
+Pat Roberts,NVDA,2020-03-02,Sale (Full),"$15,001 - $50,000",15.19
+Pat Roberts,NVDA,2020-03-06,Purchase,"$50,001 - $100,000",16.89
+Pat Roberts,NVDA,2020-02-11,Purchase,"$15,001 - $50,000",26.24
+Pat Roberts,NVDA,2020-01-06,Sale (Full),"$15,001 - $50,000",24.79
+Pat Roberts,NVDA,2019-10-01,Purchase,"$1,001 - $15,000",13.94
+Sheldon Whitehouse,NVDA,2019-05-17,Purchase,"$1,001 - $15,000",3.07
+Sheldon Whitehouse,NVDA,2018-12-28,Purchase,"$1,001 - $15,000",4.64
+Sheldon Whitehouse,NVDA,2018-10-23,Purchase,"$1,001 - $15,000",-26.56
+Pat Roberts,NVDA,2018-08-28,Purchase,"$15,001 - $50,000",-6.69
+Pat Roberts,NVDA,2018-07-30,Sale (Full),"$50,001 - $100,000",8.33
+Pat Roberts,NVDA,2018-04-25,Purchase,"$1,001 - $15,000",14.75
+Sheldon Whitehouse,NVDA,2018-02-15,Purchase,"$1,001 - $15,000",-4.4
+Pat Roberts,NVDA,2018-02-05,Purchase,"$15,001 - $50,000",13.38
+Pat Roberts,NVDA,2018-02-05,Sale (Full),"$15,001 - $50,000",13.38
+Pat Roberts,NVDA,2017-12-07,Purchase,"$1,001 - $15,000",14.89
+Pat Roberts,NVDA,2017-12-01,Purchase,"$1,001 - $15,000",7.41
+Pat Roberts,NVDA,2017-11-30,Purchase,"$15,001 - $50,000",4.97
+Pat Roberts,NVDA,2017-09-28,Purchase,"$15,001 - $50,000",12.75
+Pat Roberts,NVDA,2017-10-30,Sale (Full),"$15,001 - $50,000",-9.62
+Sheldon Whitehouse,NVDA,2017-01-11,Purchase,"$1,001 - $15,000",-6.63
+Sheldon Whitehouse,NVDA,2016-05-18,Purchase,"$1,001 - $15,000",5.89
+Sheldon Whitehouse,NVDA,2016-04-19,Purchase,"$1,001 - $15,000",26.79
+Sheldon Whitehouse,NVDA,2016-04-26,Purchase,"$1,001 - $15,000",23.52
+Sheldon Whitehouse,NVDA,2016-01-05,Purchase,"$1,001 - $15,000",-3.15
+Sheldon Whitehouse,NVDA,2016-01-06,Purchase,"$1,001 - $15,000",1.1
