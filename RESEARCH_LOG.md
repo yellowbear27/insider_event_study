@@ -119,3 +119,45 @@ Decision: Proceed with historical data for pipeline development.
 1. Fix disclosure_date problem
 2. Build event_study.py — merge trades with prices around T(0)
 3. Calculate abnormal returns vs SPY
+
+## 2026-04-22
+
+### Event Study Results — First Run
+
+Status: Working. 49 events processed. 0 skipped.
+
+Results:
+- Purchase: avg CAR +7.30% vs SPY over 30 days
+- Sale (Full): avg CAR +7.96% vs SPY over 30 days
+- Sale (Partial): avg CAR +14.95% vs SPY over 30 days
+
+### Interpretation
+
+Preliminary only. Sample too small for conclusions.
+
+Positive CAR on sales: counterintuitive.
+Possible explanations:
+- Senators selling for liquidity, not on negative information
+- 2020 NVDA bull run inflating all results regardless of trade direction
+- Sample size insufficient to separate signal from noise
+
+### Known Data Issues
+
+1. Duplicate events: Ron Wyden 2020-10-16 appears 3 times. Same date, same ticker.
+   Cause: multiple family members trading same day, each filed separately.
+   Fix needed: decide whether to deduplicate or keep all — document decision.
+
+2. transaction_date used as T(0). Disclosure date missing from source.
+   Actual market-observable date may be up to 45 days later.
+   Fix needed: pull daily files for disclosure dates.
+
+3. Data covers 2016-2020 only. Misses AI boom 2021-2026.
+   Fix needed: switch to Capitol Trades for current data.
+
+### Next Session Priorities
+
+1. Deduplicate or document duplicate decision
+2. Fix disclosure_date problem
+3. Switch data source to Capitol Trades
+4. Add statistical significance testing — t-test on CAR
+5. Separate purchases from sales in analysis
