@@ -161,3 +161,37 @@ Possible explanations:
 3. Switch data source to Capitol Trades
 4. Add statistical significance testing — t-test on CAR
 5. Separate purchases from sales in analysis
+
+## 2026-04-22 — Hypothesis Refinement
+
+### ** KEY INSIGHT: Signal Reclassification **
+
+Original grouping: Purchase / Sale Full / Sale Partial — three categories.
+
+Revised grouping:
+
+** Bullish signal: Purchase + Sale Partial **
+Rationale: Senator retains exposure. Revealed preference for upside.
+Partial sale = liquidity need, not conviction exit.
+High conviction hold disguised as a sale.
+
+** Neutral/bearish signal: Sale Full **
+Rationale: Complete exit. No remaining skin in game.
+Motivation ambiguous — liquidity, rebalancing, estate planning.
+Not necessarily informed selling.
+
+### Implication for Analysis
+
+Current CAR calculation treats all three separately.
+Next version should regroup and retest:
+- Group A: Purchase + Sale Partial combined
+- Group B: Sale Full isolated
+
+Prediction: Group A CAR will be materially higher than Group B.
+This is a testable hypothesis. Add to next session priorities.
+
+### Origin
+
+Derived from finance first principles during result interpretation.
+Not from data mining. Pre-stated before retest. — 2026-04-22
+
