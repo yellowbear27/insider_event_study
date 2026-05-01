@@ -9,9 +9,9 @@ import pandas as pd
 from typing import Optional, List
 
 from config.settings import ROOT_DIR, OUTPUT_DIR
-from data.insider_loader import fetch_senate_trades, load_raw_trades, save_raw_trades
+from data.congress_loader import fetch_senate_trades, load_raw_trades, save_raw_trades
 from data.price_loader import fetch_prices, fetch_benchmark
-from events.insider_parser import parse_raw_trades, save_events
+from events.congress_parser import parse_raw_trades, save_events
 from events.event_builder import enrich_events, filter_by_hypothesis
 from backtest.engine import calculate_returns, calculate_baseline
 from report.report_generator import generate_report, print_report

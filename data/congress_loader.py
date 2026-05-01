@@ -1,4 +1,4 @@
-# data/insider_loader.py
+# data/congress_loader.py
 """
 Insider trade data ingestion from Senate disclosures.
 Config-driven URL, retry logic, structured logging.
