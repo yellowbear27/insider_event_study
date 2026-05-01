@@ -5,7 +5,7 @@
 import argparse
 import logging
 import sys
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import pandas as pd
 import yaml
@@ -17,7 +17,7 @@ from data.price_loader import fetch_benchmark, fetch_prices
 from data.storage import load_dataframe, save_dataframe
 from events.congress_parser import parse_raw_trades, save_events
 from events.event_builder import enrich_events, filter_by_hypothesis
-from report.report_generator import generate_report, print_report
+from report.report_generator import generate_report, make_decision, print_report
 
 
 def setup_logging(level: str = "INFO") -> None:
@@ -47,8 +47,9 @@ def run_pipeline(
     tickers: Optional[List[str]] = None,
     hypothesis_name: Optional[str] = None,
     use_cache: bool = True,
-) -> None:
-    """Run the event-study pipeline."""
+    print_full_report: bool = True,
+) -> Optional[Dict[str, Any]]:
+    """Run the event-study pipeline for one hypothesis."""
     logger = logging.getLogger(__name__)
 
     logger.info(
@@ -80,7 +81,7 @@ def run_pipeline(
 
         if not raw_data:
             logger.error("No raw data available. Exiting.")
-            return
+            return None
 
     # PARSE
     if stage in [None, "parse"]:
@@ -90,7 +91,7 @@ def run_pipeline(
 
         if not raw:
             logger.error("No raw data available for parsing. Exiting.")
-            return
+            return None
 
         events_df = parse_raw_trades(raw, target_tickers=target_tickers)
         save_events(events_df)
@@ -99,7 +100,7 @@ def run_pipeline(
 
     if events_df is None or events_df.empty:
         logger.error("No events available. Exiting.")
-        return
+        return None
 
     # ENRICH
     if stage in [None, "enrich"]:
@@ -110,7 +111,7 @@ def run_pipeline(
 
     # BACKTEST
     results_df = None
-    baseline = {}
+    baseline: Dict[str, float] = {}
 
     if stage in [None, "backtest"]:
         logger.info("Stage: backtest")
@@ -121,7 +122,15 @@ def run_pipeline(
 
         if events_df.empty:
             logger.warning("No events match hypothesis. Skipping backtest.")
-            return
+            return {
+                "hypothesis": hypothesis_name or "default_test",
+                "sample_size": 0,
+                "ret_20d_mean": None,
+                "hit_20d": None,
+                "baseline_20d": None,
+                "decision": "inconclusive",
+                "reason": "No matching events",
+            }
 
         horizons = hypothesis.get("horizons", [5, 20, 60])
         benchmark_ticker = hypothesis.get("benchmark", "SPY")
@@ -138,7 +147,7 @@ def run_pipeline(
 
         if prices_df is None or prices_df.empty:
             logger.error("No price data fetched. Exiting.")
-            return
+            return None
 
         benchmark_df = fetch_benchmark(
             start_date,
@@ -160,7 +169,8 @@ def run_pipeline(
             horizons=horizons,
         )
 
-        save_dataframe(results_df, "backtest_results.csv", directory=OUTPUT_DIR)
+        output_name = f"backtest_results_{hypothesis_name or 'default'}.csv"
+        save_dataframe(results_df, output_name, directory=OUTPUT_DIR)
 
         logger.info("Backtest complete: %s events evaluated", len(results_df))
 
@@ -175,7 +185,7 @@ def run_pipeline(
 
         if report_df is None or report_df.empty:
             logger.warning("No backtest results available for report")
-            return
+            return None
 
         report_text = generate_report(
             hypothesis_name or "default_test",
@@ -184,9 +194,50 @@ def run_pipeline(
             config=hypothesis or {"min_sample_size": 10},
         )
 
-        print_report(report_text)
+        if print_full_report:
+            print_report(report_text)
+
+        summary = build_summary_row(
+            hypothesis_name=hypothesis_name or "default_test",
+            results_df=report_df,
+            baseline=baseline,
+            config=hypothesis or {"min_sample_size": 10},
+        )
+
+        logger.info("Pipeline complete")
+        return summary
 
     logger.info("Pipeline complete")
+    return None
+
+
+def run_all_hypotheses(
+    tickers: Optional[List[str]] = None,
+    use_cache: bool = True,
+) -> None:
+    """Run all configured hypotheses and print compact summary."""
+    hypotheses_cfg = load_config("hypotheses")
+    hypotheses = hypotheses_cfg.get("hypotheses", {})
+
+    if not hypotheses:
+        print("No hypotheses found in config/hypotheses.yaml")
+        return
+
+    rows = []
+
+    for hypothesis_name in hypotheses:
+        row = run_pipeline(
+            stage=None,
+            tickers=tickers,
+            hypothesis_name=hypothesis_name,
+            use_cache=use_cache,
+            print_full_report=False,
+        )
+
+        if row:
+            rows.append(row)
+
+    print_summary_table(rows)
 
 
 def get_hypothesis(hypotheses_cfg: dict, hypothesis_name: Optional[str]) -> dict:
@@ -260,6 +311,84 @@ def calculate_all_baselines(
     return baseline
 
 
+def build_summary_row(
+    hypothesis_name: str,
+    results_df: pd.DataFrame,
+    baseline: Dict[str, float],
+    config: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Build one compact summary row for terminal display."""
+    returns_20d = results_df["ret_20d"].dropna() if "ret_20d" in results_df else pd.Series()
+
+    decision = make_decision(
+        results_df=results_df,
+        baseline=baseline,
+        config=config,
+    )
+
+    return {
+        "hypothesis": hypothesis_name,
+        "sample_size": len(results_df),
+        "ret_20d_mean": returns_20d.mean() if not returns_20d.empty else None,
+        "hit_20d": (returns_20d > 0).mean() if not returns_20d.empty else None,
+        "baseline_20d": baseline_mean(baseline, 20),
+        "decision": decision["label"],
+        "reason": decision["reason"],
+    }
+
+
+def baseline_mean(baseline: Dict[str, float], horizon: int) -> Optional[float]:
+    """Average baseline values across tickers for one horizon."""
+    suffix = f"ret_{horizon}d_mean"
+    values = [value for key, value in baseline.items() if key.endswith(suffix)]
+
+    if not values:
+        return None
+
+    return sum(values) / len(values)
+
+
+def print_summary_table(rows: List[Dict[str, Any]]) -> None:
+    """Print compact all-hypotheses summary."""
+    if not rows:
+        print("No hypothesis results.")
+        return
+
+    print()
+    print("Hypothesis Summary")
+    print("=" * 86)
+    print(
+        f"{'Hypothesis':<24} "
+        f"{'N':>5} "
+        f"{'20d Mean':>10} "
+        f"{'20d Hit':>10} "
+        f"{'Baseline':>10} "
+        f"{'Decision':>14}"
+    )
+    print("-" * 86)
+
+    for row in rows:
+        print(
+            f"{row['hypothesis']:<24} "
+            f"{row['sample_size']:>5} "
+            f"{format_pct(row['ret_20d_mean']):>10} "
+            f"{format_pct(row['hit_20d']):>10} "
+            f"{format_pct(row['baseline_20d']):>10} "
+            f"{row['decision']:>14}"
+        )
+
+    print("=" * 86)
+    print()
+
+
+def format_pct(value: Optional[float]) -> str:
+    """Format float as percentage or N/A."""
+    if value is None or pd.isna(value):
+        return "N/A"
+
+    return f"{value:.2%}"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Event-driven signal hypothesis testing pipeline"
@@ -272,6 +401,7 @@ def main() -> None:
 
     parser.add_argument("--tickers", nargs="+")
     parser.add_argument("--hypothesis")
+    parser.add_argument("--all-hypotheses", action="store_true")
     parser.add_argument("--no-cache", action="store_true")
 
     parser.add_argument(
@@ -284,15 +414,25 @@ def main() -> None:
     setup_logging(args.log_level)
 
     try:
+        if args.all_hypotheses:
+            run_all_hypotheses(
+                tickers=args.tickers,
+                use_cache=not args.no_cache,
+            )
+            return
+
         run_pipeline(
             stage=args.stage,
             tickers=args.tickers,
             hypothesis_name=args.hypothesis,
             use_cache=not args.no_cache,
+            print_full_report=True,
         )
+
     except KeyboardInterrupt:
         logging.warning("Interrupted")
         sys.exit(130)
+
     except Exception as error:
         logging.error("Pipeline failed: %s", error, exc_info=True)
         sys.exit(1)

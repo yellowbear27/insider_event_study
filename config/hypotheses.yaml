@@ -1,8 +1,24 @@
 hypotheses:
+  purchase_bullish:
+    description: "Congressional purchases may predict positive forward returns."
+    event_type: "purchase"
+    expected_direction: "bullish"
+    horizons: [5, 20, 60]
+    benchmark: "SPY"
+    min_sample_size: 10
+
   partial_sale_bullish:
     description: "Partial congressional sales may signal retained conviction because the actor reduced but did not exit exposure."
     event_type: "partial_sale"
     expected_direction: "bullish"
+    horizons: [5, 20, 60]
+    benchmark: "SPY"
+    min_sample_size: 10
+
+  full_exit_bearish:
+    description: "Full exit sales may predict weaker forward returns because the actor fully exited exposure."
+    event_type: "full_exit_sale"
+    expected_direction: "bearish"
     horizons: [5, 20, 60]
     benchmark: "SPY"
     min_sample_size: 10
