@@ -101,4 +101,8 @@ def load_raw_trades(filename: str = "senate_trades.json") -> Optional[List[Dict[
     try:
         with open(file_path, 'r') as f:
             data = json.load(f)
-        logger.info(f"📂 Loaded {len(data)}
+        logger.info(f"📂 Loaded {len(data)} records from: {file_path}")
+        return data
+    except (json.JSONDecodeError, IOError) as e:
+        logger.error(f"Failed to load raw trades: {e}")
+        return None
