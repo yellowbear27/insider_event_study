@@ -1,8 +1,10 @@
 # events/congress_parser.py
 """Parse raw congressional trade JSON into a standard event schema.
 
-This parser identifies what happened. It does NOT decide whether an event is
-bullish or bearish. Direction belongs in the hypothesis layer.
+STRICT MODE:
+- Only keep rows with valid filing_date
+- event_date = filing_date (when information becomes public)
+- No direction logic here (handled in hypothesis layer)
 """
 
 import logging
@@ -30,7 +32,7 @@ COLUMN_MAP = {
     "symbol": "ticker",
     "stock_symbol": "ticker",
     "ticker_symbol": "ticker",
-    "transaction_date": "event_date",
+    "transaction_date": "event_date",  # will be overwritten by filing_date
     "date": "event_date",
     "type": "transaction_type",
     "shares": "shares_after",
@@ -39,7 +41,7 @@ COLUMN_MAP = {
 
 
 def classify_event_type(transaction_type: str, shares_after: Any) -> str:
-    """Classify the raw transaction into a factual event type."""
+    """Classify raw transaction into a factual event type."""
     ttype = str(transaction_type).strip().upper()
 
     if ttype in ["PURCHASE", "BUY", "P", "ACQUISITION"]:
@@ -71,6 +73,7 @@ def parse_raw_trades(
     df = pd.DataFrame(raw_data)
     df = df.rename(columns={k: v for k, v in COLUMN_MAP.items() if k in df.columns})
 
+    # Ensure required columns exist
     for col in ["ticker", "event_date", "filing_date", "transaction_type"]:
         if col not in df.columns:
             df[col] = None
@@ -80,23 +83,37 @@ def parse_raw_trades(
     if "shares_after" not in df.columns:
         df["shares_after"] = None
 
+    # Normalize tickers
+    df["ticker"] = df["ticker"].astype(str).str.upper().str.strip()
+
     if target_tickers:
-        target_tickers = [ticker.upper() for ticker in target_tickers]
-        df["ticker"] = df["ticker"].astype(str).str.upper().str.strip()
+        target_tickers = [t.upper() for t in target_tickers]
         df = df[df["ticker"].isin(target_tickers)].copy()
         logger.info("Filtered to %s records for tickers: %s", len(df), target_tickers)
 
+    # Convert dates
     df["filing_date"] = pd.to_datetime(df["filing_date"], errors="coerce")
-    df["event_date"] = pd.to_datetime(df["event_date"], errors="coerce")
 
-    # Important:
-    # For valid backtesting, event_date should eventually be the public disclosure
-    # date. For now, we preserve existing event_date behavior but keep filing_date
-    # explicit so the next cleanup step can enforce disclosure-date logic.
-    df = df[(df["filing_date"] >= start_date) & (df["filing_date"] <= end_date)].copy()
+    # STRICT MODE: drop rows without valid filing_date
+    before = len(df)
+    df = df[df["filing_date"].notna()].copy()
+    after = len(df)
 
+    logger.info("Dropped %s rows without filing_date", before - after)
+
+    # Set event_date = filing_date (when information becomes public)
+    df["event_date"] = df["filing_date"]
+
+    # Apply date filter
+    df = df[
+        (df["filing_date"] >= start_date) &
+        (df["filing_date"] <= end_date)
+    ].copy()
+
+    # Clean transaction_type
     df["transaction_type"] = df["transaction_type"].astype(str).str.strip().str.title()
 
+    # Classify event type
     df["event_type"] = df.apply(
         lambda row: classify_event_type(
             row["transaction_type"],
@@ -105,23 +122,24 @@ def parse_raw_trades(
         axis=1,
     )
 
-    # Direction is intentionally not decided here.
-    # Hypotheses decide whether purchase / partial_sale / full_exit_sale is bullish or bearish.
+    # No direction logic here
     df["direction"] = None
     df["source"] = "congressional_disclosure"
 
+    # Deduplicate
     df = df[SCHEMA].drop_duplicates(
         subset=["ticker", "event_date", "transaction_type", "event_type"]
     )
 
-    logger.info("Parsed %s events with standard schema", len(df))
+    logger.info("Parsed %s events with strict filing_date logic", len(df))
     return df
 
 
 def save_events(df: pd.DataFrame, filename: str = "events.csv") -> str:
-    """Save parsed events to the configured events directory."""
+    """Save parsed events to disk."""
     output_path = EVENTS_DIR / filename
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
+
     logger.info("Saved %s events to: %s", len(df), output_path)
     return str(output_path)
