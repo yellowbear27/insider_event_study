@@ -1,0 +1,8 @@
+hypotheses:
+  partial_insider_sale_bullish:
+    description: "Partial insider sales signal retained conviction → bullish forward returns"
+    event_type: "partial_insider_sale"
+    expected_direction: "bullish"
+    horizons: [5, 20, 60]
+    benchmark: "SPY"
+    min_sample_size: 10

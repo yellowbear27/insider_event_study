@@ -1,38 +1,177 @@
+#!/usr/bin/env python3
 # main.py
-# Entry point. Run this file to execute the full pipeline.
-# Usage: python main.py
-# Pipeline: fetch → parse → display
-# Storage to CSV is in storage.py (next step).
+"""Pipeline orchestrator: config-driven, CLI-enabled entry point."""
+import argparse
+import logging
+import sys
+import yaml
+import pandas as pd
+from pathlib import Path
+from typing import Optional, List
 
-from fetcher import fetch_senate_trades
-from parser import parse_senate_trades
-from storage import save_to_csv
+from config.settings import ROOT_DIR, OUTPUT_DIR, DEFAULT_START_DATE, DEFAULT_END_DATE
+from data.insider_loader import fetch_senate_trades, load_raw_trades, save_raw_trades
+from data.price_loader import fetch_prices, fetch_benchmark
+from events.insider_parser import parse_raw_trades, save_events
+from events.event_builder import enrich_events, filter_by_hypothesis
+from backtest.engine import calculate_returns, calculate_baseline
+from report.report_generator import generate_report, print_report
+from data.storage import save_dataframe, load_dataframe
+
+
+def setup_logging(level: str = "INFO"):
+    numeric_level = getattr(logging, level.upper(), logging.INFO)
+    logging.basicConfig(
+        level=numeric_level,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[logging.StreamHandler(sys.stdout)]
+    )
+
+
+def load_config(config_name: str) -> dict:
+    config_path = ROOT_DIR / "config" / f"{config_name}.yaml"
+    if not config_path.exists():
+        logging.warning(f"Config not found: {config_path}, using defaults")
+        return {}
+    with open(config_path) as f:
+        return yaml.safe_load(f)
+
+
+def run_pipeline(
+    stage: Optional[str] = None,
+    tickers: Optional[List[str]] = None,
+    hypothesis_name: Optional[str] = None,
+    use_cache: bool = True
+):
+    logger = logging.getLogger(__name__)
+    logger.info(f"🚀 Starting pipeline | stage={stage}, tickers={tickers}, hypothesis={hypothesis_name}")
+    
+    universe_cfg = load_config("universe")
+    hypotheses_cfg = load_config("hypotheses")
+    target_tickers = tickers or universe_cfg.get("tickers", ["NVDA", "CDNS", "SNPS"])
+    
+    # ========== STAGE 1: FETCH ==========
+    raw_data = None
+    if stage in [None, "fetch"]:
+        logger.info("📥 Stage: Fetch raw trades")
+        raw_data = fetch_senate_trades()
+        if raw_data:
+            save_raw_trades(raw_data)
+        else:
+            logger.info("⚠️ Fetch failed, loading from cache...")
+            raw_data = load_raw_trades()
+        if not raw_data:
+            logger.error("❌ No raw data available. Exiting.")
+            return
+
+    # ========== STAGE 2: PARSE ==========
+    events_df = None
+    if stage in [None, "parse"]:
+        logger.info("🔍 Stage: Parse events")
+        raw = raw_data or load_raw_trades()
+        if not raw:
+            logger.error("❌ No raw data for parsing. Exiting.")
+            return
+        events_df = parse_raw_trades(raw, target_tickers=target_tickers)
+        save_events(events_df)
+    else:
+        events_df = load_dataframe("events.csv", directory=ROOT_DIR/"data"/"events", fmt="csv")
+    
+    if events_df is None or events_df.empty:
+        logger.error("❌ No events to process. Exiting.")
+        return
+    
+    # ========== STAGE 3: ENRICH ==========
+    if stage in [None, "enrich"]:
+        logger.info("✨ Stage: Enrich events")
+        events_df = enrich_events(events_df)
+        save_events(events_df, filename="events_enriched.csv")
+    
+    # ========== STAGE 4: BACKTEST ==========
+    results_df = None
+    baseline = {}
+    if stage in [None, "backtest"]:
+        logger.info("📊 Stage: Backtest")
+        hypothesis = hypotheses_cfg.get("hypotheses", {}).get(hypothesis_name, {}) if hypothesis_name else {}
+        
+        if hypothesis:
+            events_df = filter_by_hypothesis(events_df, hypothesis)
+            logger.info(f"🎯 Filtered for hypothesis: {hypothesis_name}")
+        
+        if events_df.empty:
+            logger.warning("⚠️ No events match hypothesis. Skipping backtest.")
+        else:
+            horizons = hypothesis.get("horizons", [5, 20, 60])
+            benchmark = hypothesis.get("benchmark", "SPY")
+            
+            start_date = pd.to_datetime(events_df['event_date']).min().strftime("%Y-%m-%d")
+            end_date = pd.to_datetime(events_df['event_date']).max().strftime("%Y-%m-%d")
+            
+            prices_dfs = []
+            for ticker in events_df['ticker'].unique():
+                df = fetch_prices(ticker, start_date, end_date, use_cache=use_cache)
+                if df is not None: prices_dfs.append(df)
+            
+            if not prices_dfs:
+                logger.error("❌ No price data fetched. Exiting.")
+                return
+            
+            prices_df = pd.concat(prices_dfs, ignore_index=False)
+            benchmark_df = fetch_benchmark(start_date, end_date, benchmark=benchmark, use_cache=use_cache)
+            
+            results_df = calculate_returns(events_df, prices_df, benchmark_df, horizons=horizons)
+            
+            for ticker in results_df['ticker'].unique():
+                bl = calculate_baseline(prices_df, ticker, horizons=horizons)
+                baseline.update({f"{ticker}_{k}": v for k, v in bl.items()})
+            
+            save_dataframe(results_df, "backtest_results.csv", directory=OUTPUT_DIR)
+            logger.info(f"✅ Backtest complete: {len(results_df)} events evaluated")
+    
+    # ========== STAGE 5: REPORT ==========
+    if stage in [None, "report"]:
+        logger.info("📄 Stage: Generate report")
+        # FIX: Use explicit .empty check for pandas DataFrame
+        if results_df is not None and not results_df.empty:
+            report_df = results_df
+        else:
+            report_df = load_dataframe("backtest_results.csv", directory=OUTPUT_DIR)
+        
+        if report_df is not None and not report_df.empty:
+            config = hypothesis if hypothesis else {"min_sample_size": 10}
+            report_text = generate_report(
+                hypothesis_name or "default_test",
+                report_df,
+                baseline=baseline if baseline else None,
+                config=config
+            )
+            print_report(report_text)
+        else:
+            logger.warning("⚠️ No backtest results to report")
+    
+    logger.info("🏁 Pipeline complete")
 
 
 def main():
-    # Step 1: Fetch raw data from Senate Stock Watcher API
-    raw_data = fetch_senate_trades()
+    parser = argparse.ArgumentParser(description="Insider Event Study Pipeline")
+    parser.add_argument("--stage", choices=["fetch", "parse", "enrich", "backtest", "report"])
+    parser.add_argument("--tickers", nargs="+", help="Override universe tickers")
+    parser.add_argument("--hypothesis", help="Run specific hypothesis")
+    parser.add_argument("--no-cache", action="store_true", help="Disable caching")
+    parser.add_argument("--log-level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"])
+    
+    args = parser.parse_args()
+    setup_logging(args.log_level)
+    
+    try:
+        run_pipeline(stage=args.stage, tickers=args.tickers, hypothesis_name=args.hypothesis, use_cache=not args.no_cache)
+    except KeyboardInterrupt:
+        logging.warning("⚠️ Interrupted")
+        sys.exit(130)
+    except Exception as e:
+        logging.error(f"❌ Pipeline failed: {e}", exc_info=True)
+        sys.exit(1)
 
-    # Step 2: Parse and filter to target tickers
-    df = parse_senate_trades(raw_data)
-
-    if df.empty:
-        print("No trades found for target tickers.")
-        return
-
-    # Step 3: Display results in terminal
-    print("\n--- Senate Trades: NVDA / CDNS / SNPS ---")
-    print(df.to_string())   # to_string() prints the full table without truncation
-
-    print(f"\nTotal trades found: {len(df)}")
-    print(f"Tickers represented: {df['ticker'].unique()}")
-
-    # Step 4: Save to CSV
-    save_to_csv(df)
-
-
-# This block runs only when you execute main.py directly.
-# It does NOT run if another file imports main.py.
-# Standard Python pattern — always include this.
 if __name__ == "__main__":
     main()

@@ -1,0 +1,482 @@
+[
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-04-25",
+    "filing_date": "2018-04-26",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_854"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-11-24",
+    "filing_date": "2019-11-29",
+    "type": "Purchase",
+    "shares": 3671,
+    "owner_name": "Senator_130"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-08-12",
+    "filing_date": "2018-08-14",
+    "type": "Sale",
+    "shares": 193,
+    "owner_name": "Senator_765"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-07-13",
+    "filing_date": "2019-07-17",
+    "type": "Purchase",
+    "shares": 5546,
+    "owner_name": "Senator_928"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2020-02-17",
+    "filing_date": "2020-02-19",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_320"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2018-04-15",
+    "filing_date": "2018-04-16",
+    "type": "Purchase",
+    "shares": 4825,
+    "owner_name": "Senator_452"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-09-28",
+    "filing_date": "2018-09-29",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_487"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-07-20",
+    "filing_date": "2019-07-23",
+    "type": "Sale",
+    "shares": 2895,
+    "owner_name": "Senator_171"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-11-09",
+    "filing_date": "2019-11-11",
+    "type": "Sale",
+    "shares": 113,
+    "owner_name": "Senator_489"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-04-10",
+    "filing_date": "2019-04-13",
+    "type": "Purchase",
+    "shares": 3489,
+    "owner_name": "Senator_786"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-12-20",
+    "filing_date": "2019-12-21",
+    "type": "Sale",
+    "shares": 511,
+    "owner_name": "Senator_267"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-01-24",
+    "filing_date": "2019-01-27",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_432"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-08-23",
+    "filing_date": "2018-08-24",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_316"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2020-01-06",
+    "filing_date": "2020-01-09",
+    "type": "Purchase",
+    "shares": 5049,
+    "owner_name": "Senator_758"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2018-05-27",
+    "filing_date": "2018-05-30",
+    "type": "Purchase",
+    "shares": 5851,
+    "owner_name": "Senator_369"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-08-22",
+    "filing_date": "2019-08-26",
+    "type": "Sale",
+    "shares": 576,
+    "owner_name": "Senator_621"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2018-04-04",
+    "filing_date": "2018-04-05",
+    "type": "Sale",
+    "shares": 874,
+    "owner_name": "Senator_710"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-01-30",
+    "filing_date": "2019-02-03",
+    "type": "Sale",
+    "shares": 2276,
+    "owner_name": "Senator_981"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-11-28",
+    "filing_date": "2019-11-29",
+    "type": "Sale",
+    "shares": 2796,
+    "owner_name": "Senator_214"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-03-22",
+    "filing_date": "2019-03-24",
+    "type": "Sale",
+    "shares": 741,
+    "owner_name": "Senator_619"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-10-03",
+    "filing_date": "2019-10-06",
+    "type": "Sale",
+    "shares": 1262,
+    "owner_name": "Senator_482"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-07-07",
+    "filing_date": "2019-07-12",
+    "type": "Sale",
+    "shares": 169,
+    "owner_name": "Senator_214"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2020-05-01",
+    "filing_date": "2020-05-04",
+    "type": "Purchase",
+    "shares": 3921,
+    "owner_name": "Senator_680"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-03-29",
+    "filing_date": "2018-04-02",
+    "type": "Sale",
+    "shares": 1061,
+    "owner_name": "Senator_775"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-07-17",
+    "filing_date": "2019-07-19",
+    "type": "Purchase",
+    "shares": 4049,
+    "owner_name": "Senator_652"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-12-08",
+    "filing_date": "2019-12-10",
+    "type": "Sale",
+    "shares": 2671,
+    "owner_name": "Senator_482"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2019-06-14",
+    "filing_date": "2019-06-18",
+    "type": "Purchase",
+    "shares": 2121,
+    "owner_name": "Senator_446"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-08-26",
+    "filing_date": "2019-08-31",
+    "type": "Purchase",
+    "shares": 1968,
+    "owner_name": "Senator_172"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-10-09",
+    "filing_date": "2019-10-10",
+    "type": "Purchase",
+    "shares": 2167,
+    "owner_name": "Senator_438"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-06-11",
+    "filing_date": "2019-06-13",
+    "type": "Purchase",
+    "shares": 4564,
+    "owner_name": "Senator_652"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2020-01-11",
+    "filing_date": "2020-01-16",
+    "type": "Sale",
+    "shares": 1663,
+    "owner_name": "Senator_516"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-04-07",
+    "filing_date": "2018-04-08",
+    "type": "Sale",
+    "shares": 1922,
+    "owner_name": "Senator_984"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-02-25",
+    "filing_date": "2018-02-26",
+    "type": "Purchase",
+    "shares": 4568,
+    "owner_name": "Senator_982"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-09-12",
+    "filing_date": "2018-09-14",
+    "type": "Purchase",
+    "shares": 4112,
+    "owner_name": "Senator_532"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-10-13",
+    "filing_date": "2018-10-17",
+    "type": "Purchase",
+    "shares": 1674,
+    "owner_name": "Senator_927"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-04-11",
+    "filing_date": "2018-04-12",
+    "type": "Sale",
+    "shares": 774,
+    "owner_name": "Senator_871"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-06-20",
+    "filing_date": "2018-06-24",
+    "type": "Sale",
+    "shares": 130,
+    "owner_name": "Senator_268"
+  },
+  {
+    "symbol": "CDNS",
+    "transaction_date": "2018-01-03",
+    "filing_date": "2018-01-07",
+    "type": "Purchase",
+    "shares": 4461,
+    "owner_name": "Senator_533"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2020-01-19",
+    "filing_date": "2020-01-24",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_403"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-03-01",
+    "filing_date": "2018-03-06",
+    "type": "Sale",
+    "shares": 68,
+    "owner_name": "Senator_151"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-05-04",
+    "filing_date": "2019-05-09",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_620"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2020-05-21",
+    "filing_date": "2020-05-23",
+    "type": "Purchase",
+    "shares": 2088,
+    "owner_name": "Senator_982"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-02-18",
+    "filing_date": "2019-02-19",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_708"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-09-27",
+    "filing_date": "2019-09-28",
+    "type": "Sale",
+    "shares": 2601,
+    "owner_name": "Senator_367"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-11-17",
+    "filing_date": "2019-11-20",
+    "type": "Purchase",
+    "shares": 3660,
+    "owner_name": "Senator_787"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-11-04",
+    "filing_date": "2018-11-08",
+    "type": "Purchase",
+    "shares": 763,
+    "owner_name": "Senator_569"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-07-31",
+    "filing_date": "2019-08-01",
+    "type": "Purchase",
+    "shares": 2932,
+    "owner_name": "Senator_371"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-12-24",
+    "filing_date": "2018-12-25",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_548"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-12-22",
+    "filing_date": "2019-12-25",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_936"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-11-03",
+    "filing_date": "2018-11-04",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_209"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-07-21",
+    "filing_date": "2019-07-23",
+    "type": "Purchase",
+    "shares": 3344,
+    "owner_name": "Senator_451"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-12-05",
+    "filing_date": "2019-12-08",
+    "type": "Sale",
+    "shares": 218,
+    "owner_name": "Senator_194"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2019-03-10",
+    "filing_date": "2019-03-13",
+    "type": "Purchase",
+    "shares": 4461,
+    "owner_name": "Senator_233"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-09-26",
+    "filing_date": "2018-09-28",
+    "type": "Sale",
+    "shares": 89,
+    "owner_name": "Senator_214"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-12-09",
+    "filing_date": "2019-12-11",
+    "type": "Sale",
+    "shares": 616,
+    "owner_name": "Senator_540"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2018-02-12",
+    "filing_date": "2018-02-15",
+    "type": "Purchase",
+    "shares": 2316,
+    "owner_name": "Senator_466"
+  },
+  {
+    "symbol": "NVDA",
+    "transaction_date": "2019-11-30",
+    "filing_date": "2019-12-02",
+    "type": "Sale",
+    "shares": 1674,
+    "owner_name": "Senator_735"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-06-08",
+    "filing_date": "2018-06-10",
+    "type": "Sale",
+    "shares": 60,
+    "owner_name": "Senator_283"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-12-07",
+    "filing_date": "2018-12-11",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_906"
+  },
+  {
+    "symbol": "SNPS",
+    "transaction_date": "2018-04-21",
+    "filing_date": "2018-04-25",
+    "type": "Sale",
+    "shares": 0,
+    "owner_name": "Senator_936"
+  }
+]

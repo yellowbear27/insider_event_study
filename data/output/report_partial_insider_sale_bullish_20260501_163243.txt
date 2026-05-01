@@ -1,0 +1,35 @@
+Hypothesis: partial_insider_sale_bullish
+Generated: 2026-05-01T16:32:43.805894
+
+Ticker/Universe: ['NVDA', 'CDNS', 'SNPS']
+Sample size: 24
+
+5d:
+  mean return: 1.83%
+  median return: 1.97%
+  hit rate: 70.83%
+  mean CAR: 0.95%
+
+20d:
+  mean return: 5.47%
+  median return: 6.88%
+  hit rate: 58.33%
+  mean CAR: 4.06%
+
+60d:
+  mean return: 10.15%
+  median return: 10.40%
+  hit rate: 58.33%
+  mean CAR: 6.89%
+
+Baseline (random non-event days):
+  5d mean: -0.30%
+  20d mean: -2.08%
+  60d mean: 0.70%
+
+Decision: inconclusive
+Reason: Mixed signals: hit rate 58.3%, mean return 5.47% vs baseline -2.08%
+
+Notes:
+- Min sample threshold: 10
+- Confidence: low
