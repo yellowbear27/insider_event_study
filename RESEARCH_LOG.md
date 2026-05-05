@@ -195,3 +195,26 @@ This is a testable hypothesis. Add to next session priorities.
 Derived from finance first principles during result interpretation.
 Not from data mining. Pre-stated before retest. — 2026-04-22
 
+# Research Log
+
+## Date
+2026-05-05
+
+## Tools inspected
+- Horizon
+- Mobius
+
+## Why I inspected them
+I am trying to understand how dataset discovery, search logic, and scraper orchestration can support the insider event study project.
+
+## Useful ideas
+- 
+
+## Things I should not copy blindly
+- 
+
+## Possible relevance to this repo
+- 
+
+## Next concrete implementation step
+- 
