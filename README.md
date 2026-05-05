@@ -22,6 +22,17 @@ It builds a **hypothesis testing engine**.
 * Backtesting engine: working
 * Hypothesis framework: partially implemented
 
+## Current Research Direction
+
+This project is evolving from a simple insider-event backtest into a dataset-discovery and event-study pipeline. Current focus areas:
+
+- locating reliable disclosure datasets
+- improving scraper coverage
+- normalising event data
+- comparing insider signals against market benchmarks
+
+
+
 ### Known Issues
 
 * `filing_date` mostly missing → event timing not reliable
